@@ -21,4 +21,3 @@ func cast(context: IEffectContext) -> void:
 	for effect in Effects:
 		effect.execute(context)
 	CdLeftTime = Cooldown
-	

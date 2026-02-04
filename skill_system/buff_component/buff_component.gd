@@ -17,27 +17,29 @@ func _process(delta: float) -> void:
 		buff.update(delta)
 		
 		if buff.Stacks <= 0:
-			remove_buff(buff.BuffType)
+			remove_buff(buff.BuffId)
 			return
 
 		if buff.is_ticked():
 			buff.on_tick(Target)
 		if buff.is_expired():
-			remove_buff(buff.BuffType)
+			remove_buff(buff.BuffId)
 
 func add_buff(buff: IBuff) -> void:
-	var exit_buff: IBuff = ActiveBuffs.get(buff.BuffType)
+	var exit_buff: IBuff = ActiveBuffs.get(buff.BuffId)
 	if exit_buff:
-		exit_buff.on_stack(buff)
+		exit_buff.on_stack(buff, Target)
 		buff_updated.emit(exit_buff)
 	else:
-		ActiveBuffs.set(buff.BuffType, buff)
+		ActiveBuffs.set(buff.BuffId, buff)
 		buff_added.emit(buff)
 
-func remove_buff(buff_type: int) -> void:
-	var exit_buff: IBuff = ActiveBuffs.get(buff_type)
-	ActiveBuffs.erase(buff_type)
-	buff_removed.emit(exit_buff)
+func remove_buff(buff_id: int) -> void:
+	var exit_buff: IBuff = ActiveBuffs.get(buff_id)
+	if exit_buff:
+		ActiveBuffs.erase(buff_id)
+		buff_removed.emit(exit_buff)
+	
 
 func on_attacking() -> void:
 	for buff:IBuff in ActiveBuffs.values():

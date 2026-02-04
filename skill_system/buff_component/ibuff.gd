@@ -1,7 +1,8 @@
-extends Node
+extends Resource
 class_name IBuff
 
-var BuffType: int
+var BuffType: SkillEnums.BuffTypes
+var BuffId: int
 var BuffName: String
 var Duration: float = 4
 var Stacks: int = 1
@@ -24,6 +25,9 @@ func is_expired() -> bool:
 	if IsPermanent:
 		return false
 	return ElapsedTime >= Duration
+
+func on_stack(stack_buff: IBuff, target: Node2D) -> void:
+	BuffEffect.on_stack(self, stack_buff, target)
 
 func is_ticked() -> bool:
 	return TickInterval > 0 and TimeSinceLastTick >= TickInterval
