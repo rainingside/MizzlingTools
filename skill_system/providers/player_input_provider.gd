@@ -1,2 +1,0 @@
-extends IInputProvider
-class_name PlayerInputProvider

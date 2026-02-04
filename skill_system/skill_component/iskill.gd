@@ -1,4 +1,4 @@
-extends Node
+extends Resource
 class_name ISkill
 
 @export var SkillId: int
@@ -6,19 +6,19 @@ class_name ISkill
 @export var Cooldown:float
 @export var Effects: Array[ISkillEffect] = []
 
-@export var CdTimer:CooldownTimer
+var CdLeftTime: float = 0.0
 
-func _ready() -> void:
-	CdTimer.CooldownTime = Cooldown
+func _process(delta: float) -> void:
+	if is_cooldowning():
+		CdLeftTime = clampf(CdLeftTime - delta, 0, Cooldown)
+
+func is_cooldowning() -> bool:
+	return CdLeftTime > 0
 
 func cast(context: IEffectContext) -> void:
-	if not get_skill_is_ready():
+	if is_cooldowning():
 		return
-	
 	for effect in Effects:
 		effect.execute(context)
+	CdLeftTime = Cooldown
 	
-	CdTimer.start_cooldown()
-
-func get_skill_is_ready() -> bool:
-	return not CdTimer.IsCooldowning

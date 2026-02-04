@@ -7,27 +7,35 @@ var Duration: float = 4
 var Stacks: int = 1
 var TickInterval: float = 0.0
 var IsPermanent:bool = false
-var Executor: IBuffEffectExecutor
-var EffectContext: IEffectContext
 
-signal buff_elapsed(buff_type: int)
+var BuffEffect: IBuffEffect
 
 var ElapsedTime: float = 0.0
 var TimeSinceLastTick: float = 0.0 
 
 func update(delta: float) -> void:
-	ElapsedTime += delta
-	TimeSinceLastTick += delta
-	
-	if TickInterval > 0 and TimeSinceLastTick >= TickInterval:
-		TimeSinceLastTick = 0.0
-		if Executor:
-			Executor.execute(EffectContext, self)
+	if not IsPermanent:
+		ElapsedTime += delta
+		
+	if TickInterval > 0:
+		TimeSinceLastTick += delta
 
-	if ElapsedTime >= Duration:
-		buff_elapsed.emit(BuffType)
+func is_expired() -> bool:
+	if IsPermanent:
+		return false
+	return ElapsedTime >= Duration
 
-func stack_with(buff: IBuff) -> void:
-	EffectContext = buff.EffectContext
-	ElapsedTime += buff.Duration
-	Stacks += buff.Stacks
+func is_ticked() -> bool:
+	return TickInterval > 0 and TimeSinceLastTick >= TickInterval
+
+func reset_tick() -> void:
+	TimeSinceLastTick = 0.0
+
+func on_tick(target: Node2D) -> void:
+	BuffEffect.on_tick(self, target)
+
+func on_attacking(target: Node2D) -> void:
+	BuffEffect.on_attacking(self, target)
+
+func on_attacked(target: Node2D) -> void:
+	BuffEffect.on_attacked(self, target)

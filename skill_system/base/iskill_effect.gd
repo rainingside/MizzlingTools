@@ -1,8 +1,9 @@
 extends Resource
 class_name ISkillEffect
 
-var Executors: Array[IEffectExecutor] = []
+var TargetSelector: ITargetSelector
+var Executor: IEffectExecutor
 
 func execute(context: IEffectContext) -> void:
-	for executor in Executors:
-		executor.execute(context)
+	var targets: Array[Node2D] = TargetSelector.select_targets(context)
+	Executor.execute(context, targets)
