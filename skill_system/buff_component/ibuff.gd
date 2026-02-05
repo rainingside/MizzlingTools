@@ -1,15 +1,14 @@
 extends Resource
 class_name IBuff
 
-var BuffType: SkillEnums.BuffTypes
-var BuffId: int
-var BuffName: String
-var Duration: float = 4
-var Stacks: int = 1
-var TickInterval: float = 0.0
-var IsPermanent:bool = false
-
-var BuffEffect: IBuffEffect
+@export var BuffKey: String
+@export var BuffType: SkillEnums.BuffTypes
+@export var BuffName: String
+@export var Duration: float = 4
+@export var Stacks: int = 1
+@export var TickInterval: float = 0.0
+@export var IsPermanent:bool = false
+@export var BuffEffect: IBuffEffect
 
 var ElapsedTime: float = 0.0
 var TimeSinceLastTick: float = 0.0 

@@ -1,6 +1,7 @@
 extends Node
 class_name BuffComponent
 
+## key: buff_key value:buff
 var ActiveBuffs: Dictionary = {}
 
 signal buff_added(buff: IBuff)
@@ -17,29 +18,36 @@ func _process(delta: float) -> void:
 		buff.update(delta)
 		
 		if buff.Stacks <= 0:
-			remove_buff(buff.BuffId)
+			remove_buff(buff.BuffName)
 			return
 
 		if buff.is_ticked():
 			buff.on_tick(Target)
 		if buff.is_expired():
-			remove_buff(buff.BuffId)
+			remove_buff(buff.BuffName)
 
 func add_buff(buff: IBuff) -> void:
-	var exit_buff: IBuff = ActiveBuffs.get(buff.BuffId)
+	var exit_buff: IBuff = ActiveBuffs.get(buff.BuffKey)
 	if exit_buff:
 		exit_buff.on_stack(buff, Target)
 		buff_updated.emit(exit_buff)
 	else:
-		ActiveBuffs.set(buff.BuffId, buff)
+		ActiveBuffs.set(buff.BuffKey, buff)
 		buff_added.emit(buff)
 
-func remove_buff(buff_id: int) -> void:
-	var exit_buff: IBuff = ActiveBuffs.get(buff_id)
+func add_buffs(buffs: Array[IBuff]) -> void:
+	for buff: IBuff in buffs:
+		add_buff(buff)
+
+func remove_buff(buff_key: String) -> void:
+	var exit_buff: IBuff = ActiveBuffs.get(buff_key)
 	if exit_buff:
-		ActiveBuffs.erase(buff_id)
+		ActiveBuffs.erase(buff_key)
 		buff_removed.emit(exit_buff)
-	
+
+func remove_buffs(buff_keys: Array[String]) -> void:
+	for buff_key: String in buff_keys:
+		remove_buff(buff_key)
 
 func on_attacking() -> void:
 	for buff:IBuff in ActiveBuffs.values():
