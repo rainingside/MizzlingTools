@@ -5,6 +5,9 @@ class_name SkillComponent
 var ActiveSkills: Dictionary = {}
 
 var Source: Node2D
+var CdBouns: float = 0.0:
+	set(value):
+		CdBouns = clampf(value, 0.0, 0.5)
 
 func init_skills(skills: Array[ISkill]) -> void:
 	for skill: ISkill in skills:
@@ -15,7 +18,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	for skill: ISkill in ActiveSkills:
-		skill.update(delta)
+		skill.update(delta, self)
 
 func cast(skill_key: String) -> void:
 	var skill: ISkill = ActiveSkills.get(skill_key)

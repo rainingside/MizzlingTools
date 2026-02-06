@@ -49,12 +49,17 @@ func remove_buffs(buff_keys: Array[String]) -> void:
 	for buff_key: String in buff_keys:
 		remove_buff(buff_key)
 
-func on_attacking() -> void:
+func on_attacking(effect_data: IEffectData) -> void:
 	for buff:IBuff in ActiveBuffs.values():
-		buff.on_attacking(Target)
+		buff.on_attacking(Target, effect_data)
 		buff_updated.emit(buff)
 
-func on_attacked() -> void:
+func on_attacked(effect_data: IEffectData) -> void:
 	for buff:IBuff in ActiveBuffs.values():
-		buff.on_attacked(Target)
+		buff.on_attacked(Target, effect_data)
+		buff_updated.emit(buff)
+
+func on_recover(effect_data: IEffectData) -> void:
+	for buff:IBuff in ActiveBuffs.values():
+		buff.on_recover(Target, effect_data)
 		buff_updated.emit(buff)

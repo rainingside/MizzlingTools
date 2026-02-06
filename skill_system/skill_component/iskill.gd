@@ -10,11 +10,16 @@ class_name ISkill
 @export var Conditions: Array[ISkillCondition] = []
 @export var Effects: Array[ISkillEffect] = []
 
-var CdLeftTime: float = 0.0
+var CdLeftTime: float = 0.0:
+	set(value):
+		CdLeftTime = value
+		cd_lefttime_changed.emit(value)
 
-func update(delta: float) -> void:
+signal cd_lefttime_changed(cd_lefttime: float)
+
+func update(delta: float, skill_component: SkillComponent) -> void:
 	if is_cooldowning():
-		CdLeftTime = clampf(CdLeftTime - delta, 0, Cooldown)
+		CdLeftTime = clampf(CdLeftTime - delta * (skill_component.CdBouns + 1), 0, Cooldown)
 
 func is_cooldowning() -> bool:
 	return CdLeftTime > 0
