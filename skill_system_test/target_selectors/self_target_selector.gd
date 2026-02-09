@@ -1,4 +1,5 @@
 extends ITargetSelector
+class_name SelfTargetSelector
 
 func select_targets(context: ISkillContext) -> Array[Node2D]:
 	var targets: Array[Node2D] = []

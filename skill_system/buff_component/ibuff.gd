@@ -4,16 +4,28 @@ class_name IBuff
 @export var BuffKey: String
 @export var BuffType: SkillEnums.BuffTypes
 @export var BuffName: String
-@export var Duration: float = 4
-@export var Stacks: int = 1
+@export var Duration: float = 4:
+	set(value):
+		Duration = value
+		lefttime_updated.emit()
+@export var Stacks: int = 1:
+	set(value):
+		Stacks = value
+		stacks_updated.emit()
 @export var TickInterval: float = 0.0
 @export var IsPermanent:bool = false
 @export var BuffEffect: IBuffEffect
 
 var Source: Node2D
 
-var ElapsedTime: float = 0.0
+var ElapsedTime: float = 0.0:
+	set(value):
+		ElapsedTime = value
+		lefttime_updated.emit()
 var TimeSinceLastTick: float = 0.0 
+
+signal lefttime_updated()
+signal stacks_updated()
 
 func update(delta: float) -> void:
 	if not IsPermanent:

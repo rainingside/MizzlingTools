@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://cefrhd1174xp8"]
+
+[ext_resource type="Script" uid="uid://dr0i7gvowbf4d" path="res://skill_system_test/objects/health_bar.gd" id="1_fowiu"]
+
+[node name="HealthBar" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 400.0
+offset_bottom = 50.0
+script = ExtResource("1_fowiu")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+step = 1.0

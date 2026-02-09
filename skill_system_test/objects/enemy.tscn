@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://cv7xs78oh5xkj"]
+
+[ext_resource type="Script" uid="uid://cxqmyg5vg5yar" path="res://skill_system_test/objects/enemy.gd" id="1_f0b3v"]
+[ext_resource type="Texture2D" uid="uid://btwf7v6bhoog" path="res://skill_system_test/assets/red.svg" id="2_6bn4s"]
+[ext_resource type="Script" uid="uid://cobk3xt4ltoxr" path="res://skill_system/skill_component/skill_component.gd" id="3_cd40s"]
+[ext_resource type="Script" uid="uid://c1kdqxxy6g55v" path="res://skill_system/buff_component/buff_component.gd" id="4_dm2mi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6bn4s"]
+radius = 21.023796
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_f0b3v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_6bn4s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6bn4s")
+
+[node name="SkillComponent" type="Node" parent="."]
+script = ExtResource("3_cd40s")
+metadata/_custom_type_script = "uid://cobk3xt4ltoxr"
+
+[node name="BuffComponent" type="Node" parent="."]
+script = ExtResource("4_dm2mi")
+metadata/_custom_type_script = "uid://c1kdqxxy6g55v"

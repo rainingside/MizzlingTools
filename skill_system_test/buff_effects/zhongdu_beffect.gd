@@ -12,3 +12,4 @@ func on_tick(buff: IBuff, target: Node2D, source: Node2D) -> void:
 	attack_data.Damage = Bonus * buff.Stacks
 	
 	AttributeInterface.attack(source, target, attack_data)
+	buff.Stacks -= 1
