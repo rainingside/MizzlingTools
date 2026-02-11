@@ -19,7 +19,7 @@ func set_countdown() -> void:
 	if BuffInstance.IsPermanent:
 		buff_cd_label.text = "永久"
 	else:
-		buff_cd_label.text = str(BuffInstance.Duration - BuffInstance.ElapsedTime)
+		buff_cd_label.text = String.num(BuffInstance.Duration - BuffInstance.ElapsedTime, 1)
 
 func on_stacks_updated() -> void:
 	buff_stack_label.text = str(BuffInstance.Stacks)

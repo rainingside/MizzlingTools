@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://8l7i8au0w0st" path="res://skill_system_test/objects/buff_status.gd" id="1_j6s1x"]
 
 [node name="BuffStatus" type="Control"]
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 50.0
