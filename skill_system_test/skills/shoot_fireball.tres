@@ -1,0 +1,67 @@
+[gd_resource type="Resource" script_class="ISkill" load_steps=20 format=3 uid="uid://boitsk4r2b1wm"]
+
+[ext_resource type="Script" uid="uid://ci63dq8opersq" path="res://skill_system/base/iskill_condition.gd" id="1_2a4jh"]
+[ext_resource type="Script" uid="uid://c5xt7oekuinys" path="res://skill_system_test/conditions/have_target_condition.gd" id="2_ax1le"]
+[ext_resource type="Script" uid="uid://dpmtkcbklvqke" path="res://skill_system/base/ieffect_and_selector.gd" id="2_s1etp"]
+[ext_resource type="Script" uid="uid://kc0thaj3qljg" path="res://skill_system/skill_component/iskill.gd" id="3_ab0ds"]
+[ext_resource type="Script" uid="uid://b30hjnrjdq32x" path="res://skill_system/base/iskill_effect.gd" id="4_15f76"]
+[ext_resource type="Script" uid="uid://bgkvu7kayyc1a" path="res://skill_system_test/skill_effects/direct_damage_effect.gd" id="5_t5n20"]
+[ext_resource type="Script" uid="uid://bvt5nwugslfhy" path="res://skill_system/buff_component/ibuff.gd" id="6_hjycd"]
+[ext_resource type="Script" uid="uid://k52rxesn42h2" path="res://skill_system_test/buff_effects/yishang_beffect.gd" id="7_8wqt5"]
+[ext_resource type="Script" uid="uid://l3vjmu3cr4ti" path="res://skill_system_test/skill_effects/apply_buff_effect.gd" id="8_iuh0a"]
+[ext_resource type="Script" uid="uid://bl8o737wlm70u" path="res://skill_system_test/skill_effects/shoot_projectile_effect.gd" id="9_p0ncu"]
+[ext_resource type="Script" uid="uid://3c4iv6dey36w" path="res://skill_system_test/target_selectors/target_selector.gd" id="10_p4fth"]
+
+[sub_resource type="Resource" id="Resource_su7y1"]
+script = ExtResource("2_ax1le")
+metadata/_custom_type_script = "uid://c5xt7oekuinys"
+
+[sub_resource type="Resource" id="Resource_4747e"]
+script = ExtResource("5_t5n20")
+Damage = 5
+metadata/_custom_type_script = "uid://bgkvu7kayyc1a"
+
+[sub_resource type="Resource" id="Resource_wxxva"]
+script = ExtResource("7_8wqt5")
+metadata/_custom_type_script = "uid://k52rxesn42h2"
+
+[sub_resource type="Resource" id="Resource_768tx"]
+script = ExtResource("6_hjycd")
+BuffKey = "易伤"
+BuffType = 1
+BuffName = "易伤"
+Duration = 20.0
+Stacks = 2
+BuffEffect = SubResource("Resource_wxxva")
+metadata/_custom_type_script = "uid://bvt5nwugslfhy"
+
+[sub_resource type="Resource" id="Resource_equ2r"]
+script = ExtResource("8_iuh0a")
+ApplyBuffs = Array[ExtResource("6_hjycd")]([SubResource("Resource_768tx")])
+metadata/_custom_type_script = "uid://l3vjmu3cr4ti"
+
+[sub_resource type="Resource" id="Resource_1qske"]
+script = ExtResource("9_p0ncu")
+CarryEffects = Array[ExtResource("4_15f76")]([SubResource("Resource_4747e"), SubResource("Resource_equ2r")])
+ProjectileScenePath = "uid://xho8i4vpuecb"
+Speed = 400
+metadata/_custom_type_script = "uid://bl8o737wlm70u"
+
+[sub_resource type="Resource" id="Resource_b6v5a"]
+script = ExtResource("10_p4fth")
+metadata/_custom_type_script = "uid://3c4iv6dey36w"
+
+[sub_resource type="Resource" id="Resource_4xafd"]
+script = ExtResource("2_s1etp")
+Effect = SubResource("Resource_1qske")
+Selector = SubResource("Resource_b6v5a")
+metadata/_custom_type_script = "uid://dpmtkcbklvqke"
+
+[resource]
+script = ExtResource("3_ab0ds")
+SkillKey = "shoot_fireball"
+SkillName = "发射火球"
+Cooldown = 5.0
+Conditions = Array[ExtResource("1_2a4jh")]([SubResource("Resource_su7y1")])
+EffectAndSelectors = Array[ExtResource("2_s1etp")]([SubResource("Resource_4xafd")])
+metadata/_custom_type_script = "uid://kc0thaj3qljg"

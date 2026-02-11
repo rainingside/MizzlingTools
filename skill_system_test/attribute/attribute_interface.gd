@@ -5,14 +5,14 @@ class_name AttributeInterface
 
 static func attack(source: Node2D, target: Node2D, attack_data: AttackEffectData) -> void:
 	var buff_component: BuffComponent = source.get_node("BuffComponent")
-	for buff: IBuff in buff_component.ActiveBuffs:
+	for buff: IBuff in buff_component.ActiveBuffs.values():
 		buff.on_attacking(source, attack_data)
 	
 	attacked(source, target, attack_data)
 
 static func attacked(source: Node2D, target: Node2D, attack_data: AttackEffectData) -> void:
 	var buff_component: BuffComponent = target.get_node("BuffComponent")
-	for buff: IBuff in buff_component.ActiveBuffs:
+	for buff: IBuff in buff_component.ActiveBuffs.values():
 		buff.on_attacked(source, attack_data)
 	var target_interface: AttributeInterface = target.get_node("AttributeInterface")
 	target_interface.AttrInstance.Health -= attack_data.Damage

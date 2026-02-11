@@ -4,8 +4,7 @@ class_name RemoveRandomBuffEffect
 @export var RemoveBuffType: SkillEnums.BuffTypes
 @export var RemoveCount: int
 
-func execute(context: ISkillContext) -> void:
-	var targets: Array[Node2D] = select_targets(context)
+func execute(_context: ISkillContext, targets: Array[Node2D]) -> void:
 	for target: Node2D in targets:
 		var buff_component: BuffComponent = target.get_node("BuffComponent")
 		if not buff_component:

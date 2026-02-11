@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="ISkill" load_steps=13 format=3 uid="uid://e0wcyqwp422a"]
+
+[ext_resource type="Script" uid="uid://ci63dq8opersq" path="res://skill_system/base/iskill_condition.gd" id="1_dbyec"]
+[ext_resource type="Script" uid="uid://kc0thaj3qljg" path="res://skill_system/skill_component/iskill.gd" id="2_1guuh"]
+[ext_resource type="Script" uid="uid://c8fo3cs7od832" path="res://skill_system_test/conditions/skill_range_condition.gd" id="2_hn7ec"]
+[ext_resource type="Script" uid="uid://c5xt7oekuinys" path="res://skill_system_test/conditions/have_target_condition.gd" id="3_koyga"]
+[ext_resource type="Script" uid="uid://dpmtkcbklvqke" path="res://skill_system/base/ieffect_and_selector.gd" id="4_koyga"]
+[ext_resource type="Script" uid="uid://bgkvu7kayyc1a" path="res://skill_system_test/skill_effects/direct_damage_effect.gd" id="5_wiso4"]
+[ext_resource type="Script" uid="uid://3c4iv6dey36w" path="res://skill_system_test/target_selectors/target_selector.gd" id="6_ho8r7"]
+
+[sub_resource type="Resource" id="Resource_btln1"]
+script = ExtResource("2_hn7ec")
+metadata/_custom_type_script = "uid://c8fo3cs7od832"
+
+[sub_resource type="Resource" id="Resource_wiso4"]
+script = ExtResource("3_koyga")
+metadata/_custom_type_script = "uid://c5xt7oekuinys"
+
+[sub_resource type="Resource" id="Resource_lfwgr"]
+script = ExtResource("5_wiso4")
+Damage = 10
+metadata/_custom_type_script = "uid://bgkvu7kayyc1a"
+
+[sub_resource type="Resource" id="Resource_dw5ie"]
+script = ExtResource("6_ho8r7")
+metadata/_custom_type_script = "uid://3c4iv6dey36w"
+
+[sub_resource type="Resource" id="Resource_c3ida"]
+script = ExtResource("4_koyga")
+Effect = SubResource("Resource_lfwgr")
+Selector = SubResource("Resource_dw5ie")
+metadata/_custom_type_script = "uid://dpmtkcbklvqke"
+
+[resource]
+script = ExtResource("2_1guuh")
+SkillKey = "close_atk"
+SkillName = "近战攻击"
+SkillRange = 50
+Cooldown = 1.0
+Conditions = Array[ExtResource("1_dbyec")]([SubResource("Resource_btln1"), SubResource("Resource_wiso4")])
+EffectAndSelectors = Array[ExtResource("4_koyga")]([SubResource("Resource_c3ida")])
+Description = "近战攻击"
+metadata/_custom_type_script = "uid://kc0thaj3qljg"

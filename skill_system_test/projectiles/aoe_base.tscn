@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://btm15k5dhy81r"]
+
+[ext_resource type="Script" uid="uid://dl5n84acss84h" path="res://skill_system_test/projectiles/aoe_base.gd" id="1_y1xsn"]
+[ext_resource type="Texture2D" uid="uid://dmnonwo3jssuj" path="res://skill_system_test/assets/yellow.svg" id="2_0pboi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0pboi"]
+radius = 44.04543
+
+[node name="AoeBase" type="Area2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_y1xsn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_0pboi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0pboi")
+
+[node name="FreeTimer" type="Timer" parent="."]
+one_shot = true

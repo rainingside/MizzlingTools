@@ -1,4 +1,4 @@
 extends IEffectData
 class_name AttackEffectData
 
-var Damage: int
+@export var Damage: int

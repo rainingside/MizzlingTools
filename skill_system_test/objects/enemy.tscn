@@ -1,14 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://cv7xs78oh5xkj"]
+[gd_scene load_steps=10 format=3 uid="uid://cv7xs78oh5xkj"]
 
 [ext_resource type="Script" uid="uid://cxqmyg5vg5yar" path="res://skill_system_test/objects/enemy.gd" id="1_f0b3v"]
 [ext_resource type="Texture2D" uid="uid://btwf7v6bhoog" path="res://skill_system_test/assets/red.svg" id="2_6bn4s"]
 [ext_resource type="Script" uid="uid://cobk3xt4ltoxr" path="res://skill_system/skill_component/skill_component.gd" id="3_cd40s"]
+[ext_resource type="Script" uid="uid://v7oavun5w27f" path="res://skill_system/skill_component/selector_component.gd" id="3_dm2mi"]
+[ext_resource type="Script" uid="uid://day47dg5c4g5n" path="res://skill_system_test/attribute/attribute_interface.gd" id="3_ryi0u"]
 [ext_resource type="Script" uid="uid://c1kdqxxy6g55v" path="res://skill_system/buff_component/buff_component.gd" id="4_dm2mi"]
+[ext_resource type="Script" uid="uid://de711o530o1my" path="res://skill_system_test/attribute/Attribute.gd" id="4_ugorm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6bn4s"]
 radius = 21.023796
 
+[sub_resource type="Resource" id="Resource_dnygl"]
+script = ExtResource("4_ugorm")
+metadata/_custom_type_script = "uid://de711o530o1my"
+
 [node name="Enemy" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
+motion_mode = 1
 script = ExtResource("1_f0b3v")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -17,8 +27,18 @@ texture = ExtResource("2_6bn4s")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_6bn4s")
 
-[node name="SkillComponent" type="Node" parent="."]
+[node name="AttributeInterface" type="Node" parent="."]
+script = ExtResource("3_ryi0u")
+AttrInstance = SubResource("Resource_dnygl")
+metadata/_custom_type_script = "uid://day47dg5c4g5n"
+
+[node name="SelectorComponent" type="Node" parent="."]
+script = ExtResource("3_dm2mi")
+metadata/_custom_type_script = "uid://v7oavun5w27f"
+
+[node name="SkillComponent" type="Node" parent="." node_paths=PackedStringArray("Selector")]
 script = ExtResource("3_cd40s")
+Selector = NodePath("../SelectorComponent")
 metadata/_custom_type_script = "uid://cobk3xt4ltoxr"
 
 [node name="BuffComponent" type="Node" parent="."]

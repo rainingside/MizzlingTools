@@ -4,10 +4,11 @@ class_name ISkill
 @export var SkillKey: String
 @export var SkillName: String
 @export var SkillRange: int
-@export var Description: String
+@export var IsPassive: bool
 @export var Cooldown: float
 @export var Conditions: Array[ISkillCondition] = []
-@export var Effects: Array[ISkillEffect] = []
+@export var EffectAndSelectors: Array[IEffectAndSelector]
+@export var Description: String
 
 var CdLeftTime: float = 0.0:
 	set(value):
@@ -31,7 +32,15 @@ func cast(context: ISkillContext) -> void:
 		if not condition.is_met(context):
 			return
 			
-	for effect in Effects:
-		effect.execute(context)
+	execute_effects(context)
 		
 	CdLeftTime = Cooldown
+
+func cast_passive(context: ISkillContext) -> void:
+	execute_effects(context)
+
+func execute_effects(context: ISkillContext) -> void:
+	for item: IEffectAndSelector in EffectAndSelectors:
+		var targets: Array[Node2D] = item.Selector.select_targets(context)
+		item.Effect.execute(context, targets)
+	

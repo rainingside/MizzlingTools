@@ -3,8 +3,7 @@ class_name ApplyBuffEffect
 
 @export var ApplyBuffs: Array[IBuff]
 
-func execute(context: ISkillContext) -> void:
-	var targets: Array[Node2D] = select_targets(context)
+func execute(context: ISkillContext, targets: Array[Node2D]) -> void:
 	for buff: IBuff in ApplyBuffs:
 		buff.Source = context.Source
 	for target: Node2D in targets:
